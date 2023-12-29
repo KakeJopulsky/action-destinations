@@ -45,13 +45,19 @@ const destination: DestinationDefinition<Settings> = {
       const endpoint = getRegionalEndpoint('getWebhooks', settings.dataCenterLocation as DataCenterLocation)
       return request(endpoint, {
         method: 'get',
-        headers: { 'Api-Key': settings.apiKey }
+        headers: {
+          'Api-Key': settings.apiKey,
+          'Api-User-Agent': 'Segment'
+        }
       })
     }
   },
   extendRequest({ settings }) {
     return {
-      headers: { 'Api-Key': settings.apiKey }
+      headers: {
+        'Api-Key': settings.apiKey,
+        'Api-User-Agent': 'Segment'
+      }
     }
   },
   actions: {

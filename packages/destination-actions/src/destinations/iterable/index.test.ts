@@ -30,6 +30,16 @@ describe('Iterable', () => {
         'Credentials are invalid: 401 Unauthorized'
       )
     })
+
+    it('should include api-user-agent header in the request', async () => {
+      nock('https://api.iterable.com').get('/api/webhooks').matchHeader('Api-User-Agent', 'Segment').reply(200, {})
+
+      const settings = {
+        apiKey: 'iterableApiKey',
+        dataCenterLocation: 'united_states'
+      }
+      await expect(testDestination.testAuthentication(settings)).resolves.not.toThrowError()
+    })
   })
 })
 
